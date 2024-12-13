@@ -30,6 +30,8 @@ if __name__ == '__main__':
      flipData = getHtml(websiteUrl=flipUrl,showBrowser=False,screenshotName='./lp2')
       
      Allcollection=[]
+     
+for t in flipData.css('div[class="tUxRFH"]'): 
 
      allTitle = [t.text() for t in flipData.css('div[class="KzDlHZ"]')]
      print(allTitle)
@@ -46,19 +48,35 @@ if __name__ == '__main__':
      allrating = [t.text()for t in flipData.css('div[class="_5OesEi"]')]
      print(allrating)
 
+     allonlyrating = [t.text() for t in flipData.css('span > div[class="XQDdHH"]')]
+     print(allonlyrating)
+
+     DeliveryDate = [t.text() for t in flipData.css('div[class="k6cAZE dlFt9U"]')]
+     print(DeliveryDate)
+
+     ProductDetail = [t.text() for t in flipData.css('ul[class="G4BRas"]')]
+     print(ProductDetail)
+
+     allP_off = [t.text() for t in flipData.css('div[class="UkUFwK"]')]
+     print(allP_off)
+
      AllLaptopData ={
           'Title':allTitle,
           'Price':allprice,
           'Img':allimage,
           'Mrp':allLaMRP,
-          'Rating':allrating
+          'Rating':allrating,
+          'onlyRating':allonlyrating,
+          'Delivery':DeliveryDate,
+          'Detail':ProductDetail,
+          'Off':allP_off
 
      }
      Allcollection.append(AllLaptopData)
 
 
-     df = pd.DataFrame.from_dict(AllLaptopData,orient="index").transpose()
-     df.to_csv('flipkard.csv', index=False)
+     df = pd.DataFrame(AllLaptopData)
+     df.to_csv('flipkard.csv')
 
      
 
